@@ -1,0 +1,190 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="https://www.thymeleaf.com">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+<!--    <title>Book Store</title>-->
+<!--    <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>-->
+<!--    <style>-->
+<!--        /* Add some spacing between the heading and table */-->
+<!--        .table-heading {-->
+<!--            margin-bottom: 20px; /* Adjust the value as needed */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-primary">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="/">Book Store</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="/">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="available_books">Available Books</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="my_books">My Books</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <div>-->
+<!--                <a class="nav-link active text-white" href="book_register">New Book Register</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--<div class="container my-5 col-md-6">-->
+<!--    &lt;!&ndash; Add the "Available Books" heading with spacing &ndash;&gt;-->
+<!--    <h2 class="text-center table-heading" style="color: #007bff;">Available Books</h2>-->
+<!--    <table class="table table-striped table-hover">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">Id</th>-->
+<!--            <th scope="col">Name</th>-->
+<!--            <th scope="col">Author</th>-->
+<!--            <th scope="col">Price</th>-->
+<!--            <th scope="col">Action</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="b: ${book}">-->
+<!--            <td th:text="${b.id}"></td>-->
+<!--            <td th:text="${b.name}"></td>-->
+<!--            <td th:text="${b.author}"></td>-->
+<!--            <td th:text="${b.price}"></td>-->
+<!--            <td>-->
+<!--                <a style="background-color: green; color: white;" class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>-->
+<!--                <a style="color:blue" th:href="@{/editBook/{id}(id=${b.id})}">-->
+<!--                    <i class="fa-solid fa-pen-to-square ms-4"></i>-->
+<!--                </a>-->
+<!--                <a style="color:red" th:href="@{/deleteBook/{id}(id=${b.id})}">-->
+<!--                    <i class="fa-solid fa-trash ms-4"></i>-->
+<!--                </a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <div class="text-center">-->
+<!--        <a class="btn btn-primary" th:href="@{/excel/download}">Download Book List</a>-->
+<!--        <center><h6 class="cl my-3" th:if="${param.message}" th:text="${param.message}" style="color: green;"></h6></center>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Book Store</title>
+    <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
+    <style>
+        /* Add some spacing between the heading and table */
+        .table-heading {
+            margin-bottom: 20px; /* Adjust the value as needed */
+        }
+
+        /* Add borders to the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Change the background color of the row on hover */
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Book Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="available_books">Available Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="my_books">My Books</a>
+                </li>
+            </ul>
+            <div>
+                <a class="nav-link active text-white" href="book_register">New Book Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container my-5 col-md-6">
+    <!-- Add the "Available Books" heading with spacing -->
+    <center><h4 class="cl" th:if="${param.message}" th:text="${param.message}" style="color: green; font-weight: bold;"></h4></center>
+
+    <h2 class="text-center table-heading my-3" style="color: #007bff;">Available Books</h2>
+    <table class="table table-striped table-hover">
+<!--        <thead class="header-row" style="background-color: #007bff; color: white;">-->
+        <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b: ${book}">
+            <td th:text="${b.id}"></td>
+            <td th:text="${b.name}"></td>
+            <td th:text="${b.author}"></td>
+            <td th:text="${b.price}"></td>
+            <td>
+                <a style="background-color: green; color: white;" class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>
+                <a style="color:blue" th:href="@{/editBook/{id}(id=${b.id})}">
+                    <i class="fa-solid fa-pen-to-square ms-4"></i>
+                </a>
+                <a style="color:red" th:href="@{/deleteBook/{id}(id=${b.id})}">
+                    <i class="fa-solid fa-trash ms-4"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-primary" th:href="@{/excel/download}">Download Book List</a>
+<!--        <center><h6 class="cl my-3" th:if="${param.message}" th:text="${param.message}" style="color: green;"></h6></center>-->
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
